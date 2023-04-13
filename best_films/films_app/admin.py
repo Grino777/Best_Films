@@ -20,3 +20,17 @@ class MovieAdmin(admin.ModelAdmin):
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     list_display = ['status']
+
+
+
+@admin.register(UserNick)
+class UserNickAdmin(admin.ModelAdmin):
+    list_display = ['user_id', 'user_nick']
+
+
+
+@admin.register(UserMovies)
+class UserMoviesAdmin(admin.ModelAdmin):
+    list_display = ['user_id', 'movie_id', 'view_status', 'viewing_date']
+
+
