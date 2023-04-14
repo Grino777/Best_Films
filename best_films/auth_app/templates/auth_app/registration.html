@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Регистрация
+    </title>
+
+    {% block add_css %} {% endblock %}
+
+
+</head>
+<body>
+    {% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Регистрация</button>
+    </form>
+    {% endblock %}
+</body>
+</html>
