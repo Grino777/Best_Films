@@ -1,27 +1,36 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.views import View
+from django.contrib.auth import logout, login
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 
 from .forms import *
 
 # Create your views here.
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 
 
-class UserRegistration(View):
-    def get(self, request, *args, **kwargs):
-        form = UserRegistrationForm(request.POST)
-        return render(request, 'auth_app/registration.html', context={'form': form})
+def logout_user(request):
+    logout(request)
+    return redirect('/')
 
-    def post(self, request, *args, **kwargs):
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            form.save()
-        else:
-            return render(request, 'auth_app/registration', context={'form': form})
-        return HttpResponseRedirect('done')
 
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'auth_app/registration.html'
+    success_url = 'done'
+
+    def form_valid(self, form):
+        '''Метод автоматической авторизации пользователя при регистрации'''
+        user = form.save()
+        login(self.request, user)
+        return redirect('/')
+
+
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'auth_app/login.html'
+
+    def get_success_url(self):
+        return '/'
 
 
 class DoneUserRegistration(TemplateView):
