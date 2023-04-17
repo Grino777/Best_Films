@@ -1,13 +1,56 @@
-html {
+html, body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: 'Arial';
+    width: 100%;
+    min-height: 100vh;
 }
 
 .navigation-bar {
     height: 50px;
+    display: grid;
+    grid-template-areas: "A B C D";
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    align-items: center;
+    background: grey;
+
+}
+
+nav a {
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+a.nav__main {
+    grid-area: A;
+}
+
+.nav__none {
+    grid-area: B;
+}
+
+.nav__registration {
+    grid-area: C;
+}
+
+.nav__login {
+    grid-area: D;
 }
 
 .navigation-bar a {
-    font-size: 30px;
+    font-size: 2rem;
+    text-align: center;
 }
+
+nav.a {
+    background: orange;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
+

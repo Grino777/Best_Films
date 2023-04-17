@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 from .forms import *
 
@@ -16,7 +17,7 @@ def logout_user(request):
 class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'auth_app/registration.html'
-    success_url = 'done'
+    success_url = reverse_lazy('success_url')
 
     def form_valid(self, form):
         '''Метод автоматической авторизации пользователя при регистрации'''
