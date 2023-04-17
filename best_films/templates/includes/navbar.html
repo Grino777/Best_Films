@@ -1,6 +1,12 @@
 <nav class="navigation-bar container">
   <a href="/" class="nav__main">Главная</a>
-  <a href="" class="nav__none"></a>
-  <a href="{% url 'registration' %}" class="nav__registartion">Регистрация</a>
-  <a href="{% url 'login' %}" class="nav_login">Войти</a>
+  <div class="nav__none"></div>
+  {% if request.user.is_authenticated is False %}
+    <a href="{% url 'registration' %}" class="nav__registartion">Регистрация</a>
+    <a href="{% url 'login' %}" class="nav_login">Войти</a>
+  {% else %}
+    <div class="username">{{ request.user|capfirst }}</div>
+    <a href="{% url 'logout' %}">Выйти</a>
+  {% endif %}
+
 </nav>

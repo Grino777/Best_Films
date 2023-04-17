@@ -26,6 +26,12 @@ nav a {
     text-decoration: none;
 }
 
+nav a:hover {
+    background: orange;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+
 a.nav__main {
     grid-area: A;
 }
@@ -38,6 +44,14 @@ a.nav__main {
     grid-area: C;
 }
 
+.username {
+    grid-area: C;
+    text-align: center;
+    font-family: 'Arial';
+    font-size: 2rem;
+
+}
+
 .nav__login {
     grid-area: D;
 }
@@ -45,12 +59,6 @@ a.nav__main {
 .navigation-bar a {
     font-size: 2rem;
     text-align: center;
-}
-
-nav.a {
-    background: orange;
-    border: 2px solid black;
-    border-radius: 7px;
 }
 
 

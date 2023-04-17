@@ -1,6 +1,6 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
 from .forms import *
@@ -23,7 +23,15 @@ class RegisterUser(CreateView):
         '''Метод автоматической авторизации пользователя при регистрации'''
         user = form.save()
         login(self.request, user)
-        return redirect('/')
+        return reverse_lazy('success_url')
+
+    def post(self, request, *args, **kwargs):
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            self.form_valid(form)
+        else:
+            return render(request, 'auth_app/registration.html', context={'form': form})
 
 
 class LoginUser(LoginView):
