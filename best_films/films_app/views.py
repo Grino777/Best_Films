@@ -15,3 +15,14 @@ class UsersList(ListView):
     model = User
     template_name = 'films_app/users_list.html'
     context_object_name = 'users'
+
+    def get_queryset(self):
+        context = super().get_queryset()
+        context = User.objects.order_by('username')
+        return context
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     res = super().get_context_data(**kwargs)
+    #     res['user'] = self.request.user
+    #     print(res)
+    #     return res

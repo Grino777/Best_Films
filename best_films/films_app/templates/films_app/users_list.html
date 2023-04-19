@@ -8,12 +8,13 @@
 
 {% block content %}
     <div class="content">
+        <h2 class="title">{{ request.user }}</h2>
         <div class="users__block">
             <h2>Список пользователей:</h2>
             <ul class="users__list">
                 {% for user in users %}
                     {% if user.username != 'admin' %}
-                        <li>{{ user.username }}</li>
+                        <li class="{% if user == request.user %}my__username{% else %}{% endif %}">{{ user.username }}</li>
                     {% else %}
                     {% endif %}
                 {% endfor %}

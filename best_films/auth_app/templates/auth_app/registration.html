@@ -18,7 +18,7 @@
 </head>
 <body>
     {% block content %}
-    <form method="post">
+    <form method="post" name="reg__form">
         {% csrf_token %}
         {% for f in form %}
             <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
