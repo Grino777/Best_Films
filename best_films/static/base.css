@@ -11,29 +11,25 @@ body {
 }
 
 .navigation-bar {
-    height: 50px;
+    height: auto;
+    min-height: 60px;
     display: grid;
-    grid-template-areas: "A B C D";
-    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-areas: "A E B C D";
+    grid-template-columns: .6fr .8fr 2fr .5fr .5fr;
     align-items: center;
     background: grey;
-
+    grid-column-gap: 10px;
 }
 
-nav a {
-    height: 100%;
-    width: 100%;
-    text-decoration: none;
-}
 
-nav a:hover {
-    background: orange;
-    border: 2px solid black;
-    border-radius: 7px;
-}
 
 a.nav__main {
     grid-area: A;
+}
+
+
+.nav__all__users {
+    grid-area: E;
 }
 
 .nav__none {
@@ -43,6 +39,7 @@ a.nav__main {
 .nav__registration {
     grid-area: C;
 }
+
 
 .username {
     grid-area: C;
@@ -59,6 +56,21 @@ a.nav__main {
 .navigation-bar a {
     font-size: 2rem;
     text-align: center;
+}
+
+nav a {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a:hover {
+    background: orange;
+    border: 2px solid black;
+    border-radius: 7px;
 }
 
 

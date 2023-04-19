@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'films_app/css/users_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="users__block">
+            <h2>Список пользователей:</h2>
+            <ul class="users__list">
+                {% for user in users %}
+                    {% if user.username != 'admin' %}
+                        <li>{{ user.username }}</li>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

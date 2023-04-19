@@ -1,0 +1,39 @@
+.content {
+    display: grid;
+    grid-template-columns: .5fr 2fr .5fr;
+    grid-template-rows: .5fr 1fr 1fr 1fr;
+    height: 91vh;
+}
+
+.grid__element{}
+
+.ge__1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    width: .5fr;
+    background: black;
+}
+
+.users__block {
+    background: grey;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: -1;
+    border: 2px solid black;
+    border-radius: 7px;
+
+    display: grid;
+    grid-template-rows: 1fr 6fr;
+}
+
+.users__block h2{
+    text-align: center;
+}
+
+.users__list {
+    height:100%;
+}
+

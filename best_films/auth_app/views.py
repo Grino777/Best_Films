@@ -22,6 +22,7 @@ class RegisterUser(CreateView):
     success_url = reverse_lazy('success_url')
 
     def post(self, request, *args, **kwargs):
+        '''Метод для post-запроса с измененной регистрацией (без учета регистра).'''
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.instance.username = form.data['username'].lower()
@@ -36,6 +37,14 @@ class RegisterUser(CreateView):
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'auth_app/login.html'
+
+    def post(self, request, *args, **kwargs):
+        '''Метод для post-запроса с измененной авторизацией (без учета регистра).'''
+        user = request.POST.copy()
+        user['username'] = user['username'].lower()
+        request.POST = user
+        return super().post(request, *args, **kwargs)
+
 
     def get_success_url(self):
         return '/'
