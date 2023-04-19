@@ -1,7 +1,9 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.contrib.auth.models import User
 
 from .forms import *
 
@@ -19,17 +21,14 @@ class RegisterUser(CreateView):
     template_name = 'auth_app/registration.html'
     success_url = reverse_lazy('success_url')
 
-    def form_valid(self, form):
-        '''Метод автоматической авторизации пользователя при регистрации'''
-        user = form.save()
-        login(self.request, user)
-        return reverse_lazy('success_url')
-
     def post(self, request, *args, **kwargs):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
-            self.form_valid(form)
+            form.instance.username = form.data['username'].lower()
+            user = form.save()
+            login(self.request, user)
+            red_url = reverse('login')
+            return HttpResponseRedirect(red_url)
         else:
             return render(request, 'auth_app/registration.html', context={'form': form})
 
