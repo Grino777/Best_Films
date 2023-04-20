@@ -28,7 +28,7 @@ class RegisterUser(CreateView):
             form.instance.username = form.data['username'].lower()
             user = form.save()
             login(self.request, user)
-            red_url = reverse('login')
+            red_url = reverse('main')
             return HttpResponseRedirect(red_url)
         else:
             return render(request, 'auth_app/registration.html', context={'form': form})
