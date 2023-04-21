@@ -5,8 +5,11 @@
     <title>{% block title %} {% endblock %}</title>
     {% load static %}
     {% block css_add %} {% endblock %}
-    {% block script_add %} {% endblock %}
-    <link rel="stylesheet" href="{% static 'base.css' %}">
+
+    {% block script_add %}
+        <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% endblock %}
+
 </head>
 <body>
     {% include 'includes/navbar.html' %}

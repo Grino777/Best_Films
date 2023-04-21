@@ -6,6 +6,7 @@ from django.db import models
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50, verbose_name='Категория')
+    slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
         return self.category_name
@@ -17,7 +18,7 @@ class Category(models.Model):
 class Movie(models.Model):
     movie_title = models.CharField(max_length=100, verbose_name='Название')
     original_title = models.CharField(max_length=100, blank=True, default='', verbose_name='Оригинальное название')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Жанр')
+    category = models.ForeignKey(Category, db_index=True, on_delete=models.PROTECT, verbose_name='Жанр')
 
     def __str__(self):
         return self.movie_title

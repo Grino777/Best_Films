@@ -1,15 +1,29 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
+
+from .models import Category, Movie, Status
 
 
 # Create your views here.
-
-def index(request):
-    return render(request, 'films_app/index.html')
-
 class IndexView(TemplateView):
     template_name = 'films_app/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        return context
+
+class CategoryFilmsView(TemplateView):
+    template_name = 'films_app/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        cat_id = context['category'].get(slug=kwargs['slug']).id
+        context['movies'] = Movie.objects.filter(category_id=cat_id)
+        context['statuses'] = Status.objects.all()
+        return context
+
 
 class UsersList(ListView):
     model = User
@@ -20,9 +34,3 @@ class UsersList(ListView):
         context = super().get_queryset()
         context = User.objects.order_by('username')
         return context
-
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     res = super().get_context_data(**kwargs)
-    #     res['user'] = self.request.user
-    #     print(res)
-    #     return res
