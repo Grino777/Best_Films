@@ -18,6 +18,8 @@ class Category(models.Model):
 class Movie(models.Model):
     movie_title = models.CharField(max_length=100, verbose_name='Название')
     original_title = models.CharField(max_length=100, blank=True, default='', verbose_name='Оригинальное название')
+    description = models.TextField(verbose_name='Описание')
+    url = models.URLField(verbose_name='Ссылка')
     category = models.ForeignKey(Category, db_index=True, on_delete=models.PROTECT, verbose_name='Жанр')
 
     def __str__(self):

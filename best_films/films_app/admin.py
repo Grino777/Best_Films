@@ -16,7 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ('movie_title', 'original_title', 'category')
+    list_display = ('movie_title', 'original_title', 'description', 'url', 'category')
 
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):

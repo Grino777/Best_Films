@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Главная
+        </title>
+
+        {% block css_add %}
+            <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
+        {% endblock %}
+
+
+</head>
+<body>
+{% block content %}
+  <div class="page__content">
+      <div class="films__content">
+          <div class="films__navigation">
+              <ul class="category__name">
+                  {% for cat in category %}
+                        <li><a href="{% url 'category' cat.slug %}">{{ cat.category_name }}</a></li>
+                  {% endfor %}
+              </ul>
+          </div>
+          <div class="films">
+              <ul class="statuses">
+                  {% for status in statuses %}
+                  <li><a href="">{{ status.status }}</a></li>
+                  {% endfor %}
+              </ul>
+              <ul>
+                  {% for movie in movies %}
+                  <li><a href="">{{ movie }}</a></li>
+                  {% endfor %}
+              </ul>
+          </div>
+      </div>
+  </div>
+{% endblock %}
+</body>
+</html>

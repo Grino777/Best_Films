@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView, ListView
 
@@ -5,8 +7,9 @@ from .models import Category, Movie, Status
 
 
 # Create your views here.
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'films_app/index.html'
+    login_required('auth/login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,12 +28,18 @@ class CategoryFilmsView(TemplateView):
         return context
 
 
-class UsersList(ListView):
+class UsersList(LoginRequiredMixin, ListView):
     model = User
     template_name = 'films_app/users_list.html'
     context_object_name = 'users'
+    login_required('auth/login')
 
     def get_queryset(self):
         context = super().get_queryset()
         context = User.objects.order_by('username')
         return context
+
+class AllMoviesView(ListView):
+    model = Movie
+    template_name = 'films_app/all_movies.html'
+    context_object_name = 'movies'

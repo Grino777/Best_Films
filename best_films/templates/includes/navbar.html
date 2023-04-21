@@ -1,13 +1,17 @@
-<nav class="navigation-bar container">
-  <a href="/" class="nav__main">Главная</a>
-  <a href="{% url 'users_list' %}" class="nav__all__users">Все пользователи</a>
-  <div class="nav__none"></div>
-  {% if request.user.is_authenticated is False %}
-    <a href="{% url 'registration' %}" class="nav__registartion">Регистрация</a>
-    <a href="{% url 'login' %}" class="nav_login">Войти</a>
-  {% else %}
-    <a href="" class="username">{{ request.user|capfirst }}</a>
-    <a href="{% url 'logout' %}">Выйти</a>
-  {% endif %}
-
+<nav class="navigation__bar container">
+  <ul>
+    <li><a href="/" class="nav__main">Мои фильмы</a></li>
+    <li><a href="{% url 'all_movies' %}" class="nav__all__movies">Все фильмы</a></li>
+    <li><a href="{% url 'users_list' %}" class="nav__all__users">Все пользователи</a></li>
+    <li>
+      <div class="nav__none"></div>
+    </li>
+    {% if request.user.is_authenticated is False %}
+        <li><a href="{% url 'registration' %}" class="nav__registart</>ion">Регистрация</a></li>
+        <li><a href="{% url 'login' %}" class="nav__login">Войти</a></li>
+    {% else %}
+        <li><a href="" class="nav__username">{{ request.user|capfirst }}</a></li>
+        <li><a href="{% url 'logout' %}" class="nav__logout">Выйти</a></li>
+    {% endif %}
+  </ul>
 </nav>
