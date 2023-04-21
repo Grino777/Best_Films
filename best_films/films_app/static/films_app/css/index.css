@@ -64,6 +64,11 @@
     width: 100%;
 }
 
+.all__movies {
+    overflow-y: scroll;
+
+}
+
 
 
 

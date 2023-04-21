@@ -23,16 +23,11 @@
           <div class="films__navigation">
               <ul class="category__name">
                   {% for cat in category %}
-                        <li><a href="{% url 'category' cat.slug %}">{{ cat.category_name }}</a></li>
+                        <li><a href="{% url 'category_movies' cat.slug %}">{{ cat.category_name }}</a></li>
                   {% endfor %}
               </ul>
           </div>
-          <div class="films">
-              <ul class="statuses">
-                  {% for status in statuses %}
-                  <li><a href="">{{ status.status }}</a></li>
-                  {% endfor %}
-              </ul>
+          <div class="all__movies">
               <ul>
                   {% for movie in movies %}
                   <li><a href="">{{ movie }}</a></li>

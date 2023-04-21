@@ -5,6 +5,7 @@ urlpatterns = [
     path('', IndexView.as_view(), name='main'),
     path('category/<slug:slug>', CategoryFilmsView.as_view(), name='category'),
     path('users', UsersList.as_view(), name='users_list'),
+    path('all_movies/category/<slug:slug>', AllMoviesView.as_view(), name='category_movies'),
     path('all_movies', AllMoviesView.as_view(), name='all_movies'),
 
 ]

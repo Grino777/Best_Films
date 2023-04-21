@@ -43,3 +43,11 @@ class AllMoviesView(ListView):
     model = Movie
     template_name = 'films_app/all_movies.html'
     context_object_name = 'movies'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        cat_id = context['category'].get(slug=kwargs['slug']).id
+        context['movies'] = Movie.objects.filter(category_id=cat_id)
+        context['statuses'] = Status.objects.all()
+        return context
