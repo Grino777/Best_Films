@@ -47,7 +47,12 @@ class AllMoviesView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
-        cat_id = context['category'].get(slug=kwargs['slug']).id
-        context['movies'] = Movie.objects.filter(category_id=cat_id)
         context['statuses'] = Status.objects.all()
+        if self.kwargs:
+            category = self.kwargs['slug']
+            category = context['category'].filter(slug=category)[0]
+            context['movies'] = context['movies'].filter(category=category)
+        else:
+            category = context['category'].filter(slug='vse')[0]
+            context['movies'] = context['movies'].filter(category=category)
         return context

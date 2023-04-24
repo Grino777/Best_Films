@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -20,10 +21,14 @@ class Movie(models.Model):
     original_title = models.CharField(max_length=100, blank=True, default='', verbose_name='Оригинальное название')
     description = models.TextField(verbose_name='Описание', blank=True, default='')
     url = models.URLField(blank=True, default='', verbose_name='Ссылка')
-    category = models.ManyToManyField(Category, db_index=True,verbose_name='Жанр')
+    category = models.ManyToManyField(Category, db_index=True, verbose_name='Жанр')
 
     def __str__(self):
         return self.movie_title
+
+    def get_category(self):
+        return list(self.category.all())
+
 
 class Status(models.Model):
     status = models.CharField(max_length=20, verbose_name='Статус')

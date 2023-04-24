@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from .models import *
+
 
 # Register your models here.
 
@@ -14,9 +16,13 @@ class CategoryAdmin(admin.ModelAdmin):
     class Meta:
         verbose_name = 'Категории'
 
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ('movie_title', 'original_title', 'description', 'url')
+    search_fields = ('movie_title', 'original_title',)
+    list_display = ('movie_title', 'original_title', 'get_category')
+    filter_horizontal = ['category']
+
 
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
@@ -26,5 +32,3 @@ class StatusAdmin(admin.ModelAdmin):
 @admin.register(UserMovies)
 class UserMoviesAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'movie_id', 'view_status', 'viewing_date')
-
-
