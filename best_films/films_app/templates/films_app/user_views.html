@@ -1,0 +1,27 @@
+{% extends 'films_app/table_template.html' %}
+
+{% load static %}
+
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'films_app/css/user_movies.css' %}">
+{% endblock %}
+
+{% block list_movies %}
+        <ul class="statuses__movies">
+            {% for status in statuses %}
+                <li><a href="">{{ status.status }}</a></li>
+            {% endfor %}
+        </ul>
+    <div class="filter__movies">
+        <ul class="movie__list">
+            {% for movie in movies %}
+                <li class="movie__info">
+                    <a href="" class="movie__title">{{ movie.movie_id }} ({{ movie.movie_id.original_title }})</a>
+                    <a href="" class="delete__movie"><img src="{% static 'films_app/img/cross.ico' %}"></a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

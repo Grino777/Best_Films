@@ -42,8 +42,8 @@ class Status(models.Model):
 
 
 class UserMovies(models.Model):
-    user_id = models.OneToOneField(User, on_delete=models.PROTECT, verbose_name='ID')
-    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, verbose_name='Movie ID')
+    user_id = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
+    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, verbose_name='Название фильма')
     view_status = models.ForeignKey(Status, on_delete=models.PROTECT, default='', verbose_name='Статус просмотра')
     viewing_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата просмотра')
 

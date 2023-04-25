@@ -7,17 +7,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content">
+    <div class="page__content">
         <div class="users__block">
-            <h2>Список пользователей:</h2>
+            <h2>Список пользователей ({{ users|length }}) :</h2>
             <ul class="users__list">
-                {% for user in users %}
-                    {% if user.username != 'admin' %}
-                        <li class="{% if user == request.user %}my__username{% else %}{% endif %}">{{ user.username }}</li>
-                    {% else %}
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            {% for user in users %}
+                {% if user.username != 'admin' %}
+                    <li class="{% if user == request.user %}my__username{% else %}{% endif %}">{{ user.username|capfirst }}</li>
+                {% else %}
+                {% endif %}
+            {% endfor %}
+        </ul>
         </div>
     </div>
 {% endblock %}

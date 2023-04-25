@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
 
 from .models import Category, Movie, Status, UserMovies
@@ -9,23 +11,28 @@ from .models import Category, Movie, Status, UserMovies
 # Create your views here.
 
 def add_user_movie(request, movie_id):
+    #переопределить метод save для проверки записи в бд (уникальность)
     user = request.user
     movie = Movie.objects.get(id=movie_id)
-    movie = UserMovies.objects.create(user_id=user, movie_id=movie)
+    status = Status.objects.get(id=1)
+    movie = UserMovies.objects.create(user_id=user, movie_id=movie, view_status=status)
     movie.save()
+    url = reverse_lazy('all_movies')
+    return HttpResponseRedirect(url)
 
 def delete_user_movie(request):
     ...
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'films_app/index.html'
-    login_required('auth/login')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
-        return context
+class UsersListView(ListView):
+    """Вывод всех пользователей"""
+    model = User
+    template_name = 'films_app/users_list.html'
+    context_object_name = 'users'
+
+    def get_queryset(self):
+        return User.objects.order_by('username')
 
 
 class CategoryFilmsView(TemplateView):
@@ -50,6 +57,10 @@ class AllMoviesView(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['statuses'] = Status.objects.all()
+        added_movies = UserMovies.objects.filter(user_id=self.request.user.id)
+        context['added_movies'] = []
+        for movie in added_movies:
+            context['added_movies'].append(movie.movie_id)
         if self.kwargs:
             category = self.kwargs['slug']
             category = context['category'].filter(slug=category)[0]
@@ -60,10 +71,13 @@ class AllMoviesView(ListView):
 class UserViewsView(LoginRequiredMixin, ListView):
     """Отображение фильмов пользователя"""
     model = UserMovies
-    template_name = 'films_app/all_movies.html'
+    template_name = 'films_app/user_views.html'
     context_object_name = 'movies'
     login_required('auth/login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        context['user_movies'] = UserMovies.objects.filter()
+        context['statuses'] = Status.objects.all()
         return context

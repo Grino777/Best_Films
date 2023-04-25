@@ -1,0 +1,55 @@
+.all__movies {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: auto 1fr;
+}
+
+ul.statuses__movies {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border-bottom: 1px solid;
+}
+
+ul.statuses__movies li {
+    border-right: 1px solid;
+}
+
+ul.statuses__movies li:last-child {
+    border-right: none;
+}
+
+ul.statuses__movies li a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.filter__movies {
+    overflow-y: scroll;
+}
+
+ul.movie__list {
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+}
+
+li.movie__info {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    height: 100%;
+}
+
+.movie__title {
+    padding-left: 20px;
+}
+
+.delete__movie {
+    text-align: center;
+    border: 1px solid;
+}
+

@@ -1,45 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'films_app/table_template.html' %}
 
 {% load static %}
 
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            Главная
-        </title>
-
-        {% block css_add %}
-            <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
-        {% endblock %}
-
-
-</head>
-<body>
-{% block content %}
-  <div class="page__content">
-      <div class="films__content">
-          <div class="films__navigation">
-              <ul class="category__name">
-                  {% for cat in category %}
-                        <li><a href="{% url 'category_movies' cat.slug %}">{{ cat.category_name }}</a></li>
-                  {% endfor %}
-              </ul>
-          </div>
-          <div class="all__movies">
-              <ul>
-                  {% for movie in movies %}
-                  <li class="info__movie">
-                      <a href="" class="info__link">{{ movie }} ({{ movie.original_title }})</a>
-                      <a href="{% url 'add_movie' movie.id %}" class="add__movie"><img src="{% static 'films_app/img/plus.ico' %}"></a>
-                      <a href="{% url 'delete_movie' movie.id %}" class="delete__movie"><img src="{% static 'films_app/img/cross.ico' %}"></a>
-                  </li>
-                  {% endfor %}
-              </ul>
-          </div>
-      </div>
-  </div>
+{% block list_movies %}
+    <ul class="all__movies" style="overflow-y: scroll;">
+        {% for movie in movies %}
+            <li class="info__movie">
+                <a href="" class="info__link">{{ movie.movie_title }} ({{ movie.original_title }})</a>
+                {% if movie not in added_movies %}
+                    <a href="{% url 'add_movie' movie.id %}" class="add__movie"><img src="{% static 'films_app/img/plus.ico' %}"></a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
-</body>
-</html>
