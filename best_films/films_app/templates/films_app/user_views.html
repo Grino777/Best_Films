@@ -9,18 +9,28 @@
 {% endblock %}
 
 {% block list_movies %}
-        <ul class="statuses__movies">
-            {% for status in statuses %}
-                <li><a href="">{{ status.status }}</a></li>
-            {% endfor %}
-        </ul>
+    <ul class="statuses__movies">
+        {% for status in statuses %}
+            <li><a href="">{{ status.status }}</a></li>
+        {% endfor %}
+    </ul>
     <div class="filter__movies">
         <ul class="movie__list">
-            {% for movie in movies %}
+            {% for movie in user_movies %}
                 <li class="movie__info">
-                    <a href="" class="movie__title">{{ movie.movie_id }} ({{ movie.movie_id.original_title }})</a>
+                    <a href="" class="movie__title">{{ movie.movie }} ({{ movie.movie.original_title }})</a>
                     <a href="" class="delete__movie"><img src="{% static 'films_app/img/cross.ico' %}"></a>
                 </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block films_navigation %}
+    <div class="films__navigation">
+        <ul class="category__name">
+            {% for cat in category %}
+                <li><a href="{% url 'movies_category' cat.id %}">{{ cat.category_name }}</a></li>
             {% endfor %}
         </ul>
     </div>

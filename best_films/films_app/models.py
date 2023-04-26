@@ -21,13 +21,13 @@ class Movie(models.Model):
     original_title = models.CharField(max_length=100, blank=True, default='', verbose_name='Оригинальное название')
     description = models.TextField(verbose_name='Описание', blank=True, default='')
     url = models.URLField(blank=True, default='', verbose_name='Ссылка')
-    category = models.ManyToManyField(Category, db_index=True, verbose_name='Жанр')
+    category = models.ManyToManyField(Category, db_index=True, verbose_name='Категории')
 
     def __str__(self):
         return self.movie_title
 
     def get_category(self):
-        return list(self.category.all())
+        return self.category
 
 
 class Status(models.Model):
@@ -42,13 +42,14 @@ class Status(models.Model):
 
 
 class UserMovies(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
-    movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, verbose_name='Название фильма')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT, verbose_name='Название фильма')
     view_status = models.ForeignKey(Status, on_delete=models.PROTECT, default='', verbose_name='Статус просмотра')
     viewing_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата просмотра')
+    category = models.ManyToManyField(Category, db_index=True, verbose_name='Категории')
 
     def __str__(self):
-        return f'{self.user_id} - {self.movie_id}'
+        return f'{self.user} - {self.movie}'
 
     class Meta:
         verbose_name_plural = 'Просмотры пользователей'

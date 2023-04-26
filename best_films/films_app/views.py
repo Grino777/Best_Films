@@ -15,8 +15,10 @@ def add_user_movie(request, movie_id):
     user = request.user
     movie = Movie.objects.get(id=movie_id)
     status = Status.objects.get(id=1)
-    movie = UserMovies.objects.create(user_id=user, movie_id=movie, view_status=status)
-    movie.save()
+    category = movie.get_category().all()
+    movie_obj = UserMovies.objects.create(user=user, movie=movie, view_status=status, )
+    movie_obj.category.set(category)
+    movie_obj.save()
     url = reverse_lazy('all_movies')
     return HttpResponseRedirect(url)
 
@@ -57,13 +59,13 @@ class AllMoviesView(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['statuses'] = Status.objects.all()
-        added_movies = UserMovies.objects.filter(user_id=self.request.user.id)
+        added_movies = UserMovies.objects.filter(user=self.request.user.id)
         context['added_movies'] = []
         for movie in added_movies:
-            context['added_movies'].append(movie.movie_id)
+            context['added_movies'].append(movie.movie)
         if self.kwargs:
             category = self.kwargs['slug']
-            category = context['category'].filter(slug=category)[0]
+            category = context['category'].get(slug=category)
             context['movies'] = context['movies'].filter(category=category)
         return context
 
@@ -78,6 +80,14 @@ class UserViewsView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
-        context['user_movies'] = UserMovies.objects.filter()
+        context['user_movies'] = UserMovies.objects.filter(user_id=self.request.user.id)
         context['statuses'] = Status.objects.all()
+        return context
+
+    def get_queryset(self):
+        context = super(UserViewsView, self).get_queryset()
+        if self.kwargs:
+            category_id = self.kwargs['category_id']
+            # movies = context.prefetch_related('category').get('movie')
+        # context = [movie.movie_id for movie in context]
         return context

@@ -77,11 +77,17 @@
 .all__movies {
     height: 100%;
     margin-top: 0;
+
+}
+
+.all__movies li a {
+    align-self: center;
 }
 
 .info__movie {
     display: grid;
     grid-template-columns: 6fr 1fr;
+    margin-top: 10px;
 }
 
 .add__movie {
@@ -94,7 +100,3 @@
     background: rgba(0, 0, 0, 0.1);
 }
 
-.info__link {
-    padding: 5px;
-    margin-top: 20px;
-}

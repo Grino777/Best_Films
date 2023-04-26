@@ -7,7 +7,7 @@ from .models import *
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('category_name',)
+    list_display = ('category_name', 'id')
     prepopulated_fields = {'slug': ('category_name',)}
 
     def __str__(self):
@@ -19,8 +19,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    search_fields = ('movie_title', 'original_title',)
-    list_display = ('movie_title', 'original_title', 'get_category')
+    search_fields = ('movie_title', 'original_title')
+    list_display = ('movie_title', 'original_title')
     filter_horizontal = ['category']
 
 
@@ -31,4 +31,4 @@ class StatusAdmin(admin.ModelAdmin):
 
 @admin.register(UserMovies)
 class UserMoviesAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'movie_id', 'view_status', 'viewing_date')
+    list_display = ('user', 'movie', 'view_status', 'viewing_date')
