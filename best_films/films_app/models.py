@@ -51,5 +51,8 @@ class UserMovies(models.Model):
     def __str__(self):
         return f'{self.user} - {self.movie}'
 
+    def __hash__(self):
+        return hash((self.user, self.movie, self.view_status, self.category))
+
     class Meta:
         verbose_name_plural = 'Просмотры пользователей'

@@ -1,0 +1,22 @@
+{% extends 'films_app/table_template.html' %}
+
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
+{% endblock %}
+
+{% block table_content %}
+        <div class="films__navigation">
+            <ul class="category__name">
+                {% for cat in category %}
+                    <li><a href="{% url 'category_movies' cat.slug %}">{{ cat.category_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="movies__content">
+            {% block movies_content %}
+
+            {% endblock %}
+        </div>
+{% endblock %}

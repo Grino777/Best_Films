@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'films_app/table_template.html' %}
 
 {% load static %}
 
@@ -6,18 +6,18 @@
     <link rel="stylesheet" href="{% static 'films_app/css/users_list.css' %}">
 {% endblock %}
 
-{% block content %}
-    <div class="page__content">
-        <div class="users__block">
-            <h2>Список пользователей ({{ users|length }}) :</h2>
-            <ul class="users__list">
+{% block users_list %}
+        <h2>Список пользователей ({{ users|length }})</h2>
+        <ul class="users__list">
             {% for user in users %}
                 {% if user.username != 'admin' %}
-                    <li class="{% if user == request.user %}my__username{% else %}{% endif %}">{{ user.username|capfirst }}</li>
+                <a href="{% url 'user_movies' user.username %}">
+                    <li class="{% if user == request.user %}my__username{% else %}{% endif %}">
+                        {{ user.username|capfirst }}
+                    </li>
+                </a>
                 {% else %}
                 {% endif %}
             {% endfor %}
         </ul>
-        </div>
-    </div>
 {% endblock %}

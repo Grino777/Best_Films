@@ -1,8 +1,8 @@
-{% extends 'films_app/table_template.html' %}
+{% extends 'films_app/category_template.html' %}
 
 {% load static %}
 
-{% block list_movies %}
+{% block movies_content %}
     <ul class="all__movies" style="overflow-y: scroll;">
         {% for movie in movies %}
             <li class="info__movie">

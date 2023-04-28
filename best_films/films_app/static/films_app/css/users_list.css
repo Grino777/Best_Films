@@ -5,7 +5,7 @@
     grid-template-rows: .5fr 1fr 1fr 1fr;
 }
 
-.users__block {
+.table__content {
     background: grey;
     grid-column-start: 2;
     grid-column-end: 6;
@@ -18,12 +18,17 @@
     grid-template-rows: 1fr 6fr;
 }
 
-.users__block h2{
+.users__block {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.table__content h2{
     text-align: center;
 }
 
 .users__list {
-    height:100%;
+    height: auto;
     padding: 0;
     margin: 0;
     margin-left: 5%;
@@ -33,13 +38,6 @@
 .users__list li {
     list-style-type: none;
     font-size: 1.5rem;
-}
-
-.title {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 1;
 }
 
 .my__username {
