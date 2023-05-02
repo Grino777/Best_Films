@@ -6,6 +6,16 @@
     <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
 {% endblock %}
 
+{% block navigation %}
+        <div class="films__navigation">
+            <ul class="category__name">
+                {% for cat in category %}
+                    <li><a href="{% url 'user_movies_category' username=user category_slug=cat.slug %}">{{ cat.category_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endblock %}
+
 {% block movies_content %}
     <ul class="statuses__movies">
         {% for status in statuses %}
@@ -16,9 +26,15 @@
         {% for movie in user_movies %}
             <li class="movie__info">
                 <a href="" class="movie__title">{{ movie.movie }} ({{ movie.movie.original_title }})</a>
-                <a href="{% url 'delete_movie' movie.id %}" class="delete__movie">
-                    <img src="{% static 'films_app/img/cross.ico' %}">
-                </a>
+                {% if user == request.user.username %}
+                    <a href="{% url 'delete_movie' movie.id %}" class="delete__movie">
+                        <img src="{% static 'films_app/img/cross.ico' %}">
+                    </a>
+                {% elif user != request.user.username and movie not in query_user %}
+                    <a href="{% url 'add_movie' movie.movie_id %}" class="add__movie">
+                        <img src="{% static 'films_app/img/plus.ico' %}">
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

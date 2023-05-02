@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block table_content %}
+    {% block navigation %}
         <div class="films__navigation">
             <ul class="category__name">
                 {% for cat in category %}
@@ -14,9 +15,10 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="movies__content">
-            {% block movies_content %}
+    {% endblock %}
+    <div class="movies__content">
+        {% block movies_content %}
 
-            {% endblock %}
-        </div>
+        {% endblock %}
+    </div>
 {% endblock %}

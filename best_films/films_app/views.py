@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView
 
 from .models import Category, Movie, Status, UserMovies
@@ -20,7 +20,7 @@ def add_user_movie(request, movie_id):
     movie_obj = UserMovies.objects.create(user=user, movie=movie, view_status=status, )
     movie_obj.category.set(category)
     movie_obj.save()
-    url = reverse_lazy('all_movies')
+    url = request.META.get('HTTP_REFERER')
     return HttpResponseRedirect(url)
 
 def delete_user_movie(request, obj_id):
@@ -84,15 +84,15 @@ class UserViewsView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
-        context['user_movies'] = UserMovies.objects.filter(user_id=self.request.user.id)
         context['statuses'] = Status.objects.all()
-        if self.kwargs:
-            category_id = self.kwargs['category_id']
-            context['user_movies'] = context['user_movies'].filter(category=category_id)
+
+        user = self.kwargs.get('username', self.request.user.username)
+        context['user'] = user
+        user = User.objects.get(username=user)
+
+        category = self.kwargs.get('category_slug', 'vse')
+        category = context['category'].get(slug=category)
+
+        context['user_movies'] = context['movies'].filter(user=user).filter(category=category)
+        context['query_user'] = context['movies'].filter(user=self.request.user)
         return context
-
-class UserMoviesList(LoginRequiredMixin, TemplateView):
-    login_required('auth/login')
-
-    model = UserMovies
-    template_name = 'films_app/user_movies.html'

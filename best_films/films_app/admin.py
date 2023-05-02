@@ -20,7 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     search_fields = ('movie_title', 'original_title')
-    list_display = ('movie_title', 'original_title')
+    list_display = ('movie_title', 'original_title', 'id')
     filter_horizontal = ['category']
 
 
