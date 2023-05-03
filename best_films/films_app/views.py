@@ -67,10 +67,9 @@ class AllMoviesView(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = CATEGORY
         context['statuses'] = STATUSES
-        added_movies = UserMovies.objects.filter(user=self.request.user.id)
-        context['added_movies'] = []
-        for movie in added_movies:
-            context['added_movies'].append(movie.movie)
+        added_movies = UserMovies.objects.prefetch_related('movie', 'user').all().filter(user=self.request.user)
+
+        context['added_movie'] = [movie.movie for movie in added_movies]
         if self.kwargs:
             category = self.kwargs['slug']
             category = context['category'].get(slug=category)
