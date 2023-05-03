@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
 
 from .models import Category, Movie, Status, UserMovies
@@ -11,11 +12,14 @@ from .models import Category, Movie, Status, UserMovies
 
 # Create your views here.
 
+CATEGORY = Category.objects.all()
+STATUSES = Status.objects.all()
+
 def add_user_movie(request, movie_id):
-    #переопределить метод save для проверки записи в бд (уникальность)
+    # переопределить метод save для проверки записи в бд (уникальность)
     user = request.user
     movie = Movie.objects.get(id=movie_id)
-    status = Status.objects.get(id=1)
+    status = STATUSES.get(id=1)
     category = movie.get_category().all()
     movie_obj = UserMovies.objects.create(user=user, movie=movie, view_status=status, )
     movie_obj.category.set(category)
@@ -23,12 +27,12 @@ def add_user_movie(request, movie_id):
     url = request.META.get('HTTP_REFERER')
     return HttpResponseRedirect(url)
 
-def delete_user_movie(request, obj_id):
-    movie = get_object_or_404(UserMovies, pk=obj_id, user_id=request.user.id)
-    movie.delete()
-    url = reverse_lazy('main')
-    return HttpResponseRedirect(url)
 
+def delete_user_movie(request, obj_id):
+    movie = get_object_or_404(UserMovies, movie_id=obj_id, user_id=request.user.id)
+    movie.delete()
+    url = request.META.get('HTTP_REFERER')
+    return HttpResponseRedirect(url)
 
 
 class UsersListView(ListView):
@@ -46,10 +50,10 @@ class CategoryFilmsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
+        context['category'] = CATEGORY
         cat_id = context['category'].get(slug=kwargs['slug']).id
         context['movies'] = Movie.objects.filter(category_id=cat_id)
-        context['statuses'] = Status.objects.all()
+        context['statuses'] = STATUSES
         return context
 
 
@@ -61,8 +65,8 @@ class AllMoviesView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
-        context['statuses'] = Status.objects.all()
+        context['category'] = CATEGORY
+        context['statuses'] = STATUSES
         added_movies = UserMovies.objects.filter(user=self.request.user.id)
         context['added_movies'] = []
         for movie in added_movies:
@@ -83,16 +87,21 @@ class UserViewsView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
-        context['statuses'] = Status.objects.all()
+        context['category'] = CATEGORY
+        context['statuses'] = STATUSES
+        context['movies'] = UserMovies.objects.prefetch_related('movie', 'user').all()
+
 
         user = self.kwargs.get('username', self.request.user.username)
-        context['user'] = user
         user = User.objects.get(username=user)
+        context['user'] = user.id
 
         category = self.kwargs.get('category_slug', 'vse')
         category = context['category'].get(slug=category)
 
-        context['user_movies'] = context['movies'].filter(user=user).filter(category=category)
-        context['query_user'] = context['movies'].filter(user=self.request.user)
+        user_movies = context['movies'].filter(user=user.id).filter(category=category.id)
+        context['user_movies'] = [movie.movie for movie in user_movies]
+
+        query_user = context['movies'].filter(user=self.request.user)
+        context['query_user'] = [movie.movie for movie in query_user]
         return context

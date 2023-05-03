@@ -25,15 +25,17 @@
     <ul class="movie__list" style="overflow-y: scroll;">
         {% for movie in user_movies %}
             <li class="movie__info">
-                <a href="" class="movie__title">{{ movie.movie }} ({{ movie.movie.original_title }})</a>
-                {% if user == request.user.username %}
+                <a href="" class="movie__title">{{ movie }} ({{ movie.original_title }})</a>
+                {% if user == request.user.id %}
                     <a href="{% url 'delete_movie' movie.id %}" class="delete__movie">
                         <img src="{% static 'films_app/img/cross.ico' %}">
                     </a>
-                {% elif user != request.user.username and movie not in query_user %}
-                    <a href="{% url 'add_movie' movie.movie_id %}" class="add__movie">
-                        <img src="{% static 'films_app/img/plus.ico' %}">
-                    </a>
+                {% elif user != request.user.id %}
+                    {% if movie not in query_user %}
+                        <a href="{% url 'add_movie' movie.id %}" class="add__movie">
+                            <img src="{% static 'films_app/img/plus.ico' %}">
+                        </a>
+                    {% endif %}
                 {% endif %}
             </li>
         {% endfor %}
