@@ -81,15 +81,6 @@
     width: 100%;
 }
 
-.all__movies {
-    height: 100%;
-    margin-top: 0;
-}
-
-.all__movies li a {
-    align-self: center;
-}
-
 .info__movie {
     display: grid;
     grid-template-columns: 6fr 1fr;
@@ -169,3 +160,4 @@ li.movie__info {
 /*
 ----------user_movies (user_views)--------------
 */
+

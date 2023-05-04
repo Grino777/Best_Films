@@ -1,0 +1,14 @@
+div.movies__content {
+    display: grid;
+    grid-template-rows: auto;
+}
+
+ul.all__movies {
+    height: 100%;
+    margin-top: 0;
+    overflow-y: scroll;
+}
+
+ul.all__movies li a {
+    align-self: center;
+}

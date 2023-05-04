@@ -93,7 +93,7 @@ class UserViewsView(LoginRequiredMixin, ListView):
 
         user = self.kwargs.get('username', self.request.user.username)
         user = User.objects.get(username=user)
-        context['user'] = user.id
+        context['user'] = {'id': user.id, 'username': user.username}
 
         category = self.kwargs.get('category_slug', 'vse')
         category = context['category'].get(slug=category)
