@@ -69,7 +69,7 @@ class AllMoviesView(ListView):
         context['statuses'] = STATUSES
         added_movies = UserMovies.objects.prefetch_related('movie', 'user').all().filter(user=self.request.user)
 
-        context['added_movie'] = [movie.movie for movie in added_movies]
+        context['added_movies'] = [movie.movie for movie in added_movies]
         if self.kwargs:
             category = self.kwargs['slug']
             category = context['category'].get(slug=category)
@@ -98,9 +98,13 @@ class UserViewsView(LoginRequiredMixin, ListView):
         category = self.kwargs.get('category_slug', 'vse')
         category = context['category'].get(slug=category)
 
-        user_movies = context['movies'].filter(user=user.id).filter(category=category.id)
-        context['user_movies'] = [movie.movie for movie in user_movies]
-
-        query_user = context['movies'].filter(user=self.request.user)
-        context['query_user'] = [movie.movie for movie in query_user]
+        if user != self.request.user:
+            query_user = context['movies'].filter(user=self.request.user)
+            context['query_user'] = [movie.movie for movie in query_user]
+            user_movies = context['movies'].filter(user=user).filter(category=category)
+            context['movies'] = [movie.movie for movie in user_movies]
+        else:
+            user_movies = context['movies'].filter(user=user).filter(category=category)
+            context['movies'] = [movie.movie for movie in user_movies]
+            context['query_user'] = []
         return context

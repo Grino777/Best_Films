@@ -23,7 +23,7 @@
         {% endfor %}
     </ul>
     <ul class="movie__list" style="overflow-y: scroll;">
-        {% for movie in user_movies %}
+        {% for movie in movies %}
             <li class="movie__info">
                 <a href="" class="movie__title">{{ movie }} ({{ movie.original_title }})</a>
                 {% if user == request.user.id %}
