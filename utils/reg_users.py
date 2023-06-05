@@ -4,7 +4,7 @@ import mechanize
 import random
 import string
 
-url = "http://127.0.0.1:8000/auth/reg/"
+url = "http://localhost:8000/auth/reg/"
 
 
 
@@ -22,6 +22,6 @@ for i in range(40):
     br["email"] = f'{username}@mail.ru'
     res = br.submit()
     print(f'Итерация {i} - завершена')
-    sleep(1)
+    sleep(0.5)
 
 print('FINISED')

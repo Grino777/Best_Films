@@ -128,6 +128,7 @@ dmypy.json
 
 #idea
 .idea/
+.vscode
 
 #db
 db.sqlite3
