@@ -83,7 +83,7 @@
 
 .info__movie {
     display: grid;
-    grid-template-columns: 6fr 1fr;
+    grid-template-columns: 5fr 1fr 1fr;
     margin-top: 10px;
 }
 
@@ -92,7 +92,7 @@
 }
 
 .info__movie a:hover {
-    border: 1px solid rgba( 0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.1);
 }
@@ -160,4 +160,3 @@ li.movie__info {
 /*
 ----------user_movies (user_views)--------------
 */
-

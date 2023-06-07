@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from .forms import *
 
@@ -40,11 +41,11 @@ class LoginUser(LoginView):
 
     def post(self, request, *args, **kwargs):
         '''Метод для post-запроса с измененной авторизацией (без учета регистра).'''
+        username = request.POST['username'].lower()
         user = request.POST.copy()
-        user['username'] = user['username'].lower()
+        user['username'] = username
         request.POST = user
         return super().post(request, *args, **kwargs)
-
 
     def get_success_url(self):
         return '/'
