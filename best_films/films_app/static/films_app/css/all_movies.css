@@ -12,3 +12,9 @@ ul.all__movies {
 ul.all__movies li a {
     align-self: center;
 }
+
+.add_movie_form {
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr;
+}

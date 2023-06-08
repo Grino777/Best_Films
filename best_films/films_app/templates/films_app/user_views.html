@@ -3,41 +3,48 @@
 {% load static %}
 
 {% block css_add %}
-    <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
 {% endblock %}
 
 {% block navigation %}
-        <div class="films__navigation">
-            <ul class="category__name">
-                {% for cat in category %}
-                    <li><a href="{% url 'user_movies_category' username=user.username category_slug=cat.slug %}">{{ cat.category_name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endblock %}
+<div class="films__navigation">
+    <ul class="category__name">
+        {% for cat in category %}
+        <li><a href="{% url 'user_category_movies' username=user.username category_slug=cat.category_slug %}">
+                {{ cat.category_name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
 
 {% block movies_content %}
-    <ul class="statuses__movies">
-        {% for status in statuses %}
-            <li><a href="">{{ status.status }}</a></li>
-        {% endfor %}
-    </ul>
-    <ul class="movie__list" style="overflow-y: scroll;">
-        {% for movie in movies %}
-            <li class="movie__info">
-                <a href="" class="movie__title">{{ movie }} ({{ movie.original_title }})</a>
-                {% if user.id == request.user.id %}
-                    <a href="{% url 'delete_movie' movie.id %}" class="delete__movie">
-                        <img src="{% static 'films_app/img/cross.ico' %}">
-                    </a>
-                {% elif user.id != request.user.id %}
-                    {% if movie not in query_user %}
-                        <a href="{% url 'add_movie' movie.id %}" class="add__movie">
-                            <img src="{% static 'films_app/img/plus.ico' %}">
-                        </a>
-                    {% endif %}
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+<ul class="statuses__movies">
+    {% for status in statuses %}
+    <li><a href="">{{ status.status }}</a></li>
+    {% endfor %}
+</ul>
+<ul class="movie__list" style="overflow-y: scroll;">
+    {% for movie in movies %}
+    <li class="movie__info">
+        <a href="" class="movie__title">{{ movie }} ({{ movie.original_title }})</a>
+        {% if user.id == request.user.id %}
+        <a href="{% url 'delete_movie' movie.movie_slug %}" class="delete__movie">
+            <img src="{% static 'films_app/img/cross.ico' %}">
+        </a>
+        {% elif user.id != request.user.id %}
+        {% if movie not in query_user %}
+        <form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
+            {% csrf_token %}
+            <select name="choice" id="choice_id" class="choice">
+                {% for status in statuses %}
+                <option value="{{status.id}}">{{ status }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit"><img src="{% static 'films_app/img/plus.ico' %}"></button>
+        </form>
+        {% endif %}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

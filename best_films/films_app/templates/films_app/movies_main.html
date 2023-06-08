@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'films_app/css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'films_app/css/all_movies.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="page__content">
+    <!-- table content -->
+    <div class="table__content">
+        <div class="films__navigation">
+            <div class="category"> // Блок со списком категорий
+                <ul class="category__name">
+                    {% for cat in category %}
+                    <li><a href="{% url 'category_movies' cat.slug %}">{{ cat.category_name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end table content -->
+
+    <!-- movies content -->
+    <div class="movies__content">
+
+    </div>
+    <!-- end movies content -->
+</div>
+{% endblock %}

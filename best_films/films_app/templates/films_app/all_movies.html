@@ -1,28 +1,29 @@
-	{% extends 'films_app/category_template.html' %}
+{% extends 'films_app/category_template.html' %}
 
-	{% load static %}
+{% load static %}
 
-	{% block css_add %}
-	<link rel="stylesheet" href="{% static 'films_app/css/index.css' %}" />
-	<link rel="stylesheet" href="{% static 'films_app/css/all_movies.css' %}" />
-	{% endblock %}
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'films_app/css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'films_app/css/all_movies.css' %}" />
+{% endblock %}
 
-	{% block movies_content %}
-	<ul class="all__movies">
-		{% for movie in movies %}
-		<li class="info__movie">
-			<a href="" class="info__link">{{ movie.movie_title }}({{ movie.original_title }})</a>
-			{% if movie not in added_movies %}
-			<select>
-				<option value="" selected>Не просмотрено</option>
+{% block movies_content %}
+<ul class="all__movies">
+	{% for movie in movies %}
+	<li class="info__movie">
+		<a href="" class="info__link">{{ movie.movie_title|capfirst }} ({{ movie.original_title|capfirst }})</a>
+		{% if movie not in added_movies %}
+		<form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
+			{% csrf_token %}
+			<select name="choice" id="choice_id" class="choice">
 				{% for status in statuses %}
-				<option>{{ status }}</option>
+				<option value="{{status.id}}">{{ status }}</option>
 				{% endfor %}
 			</select>
-			<a href="{% url 'add_movie' movie.id %}" class="add__movie"><img
-					src="{% static 'films_app/img/plus.ico' %}" /></a>
-			{% endif %}
-		</li>
-		{% endfor %}
-	</ul>
-	{% endblock %}
+			<button type="submit"><img src="{% static 'films_app/img/plus.ico' %}"></button>
+		</form>
+		{% endif %}
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}
