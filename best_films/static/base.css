@@ -20,8 +20,8 @@ body {
 
     grid-template-columns: repeat(6, 1fr);
     grid-column-gap: 10px;
+    background: linear-gradient(279deg, rgba(236,64,54,1) 0%, rgba(121,9,95,0.9654236694677871) 27%, rgba(68,222,157,0.9822303921568627) 100%)
 
-    background: grey;
 }
 
 .navigation__bar li {

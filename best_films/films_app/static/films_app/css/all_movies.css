@@ -1,6 +1,16 @@
+div.movies__content__title {
+    display: grid;
+    grid-area: contentTitle;
+    border-bottom: 1px solid #0000006b;
+    margin: 0 2.5%;
+}
+
 div.movies__content {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-rows: 80px 10fr;
+    grid-template-areas:
+        "contentTitle"
+        "movieList";
 }
 
 ul.all__movies {
