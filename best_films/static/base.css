@@ -5,10 +5,12 @@ html, body {
 }
 
 body {
+    display: grid;
     font-family: 'Arial';
-    width: 100%;
     min-height: 100vh;
     font-size: 1.5rem;
+    background-color: rgba(209, 209, 209, 0.507);
+    grid-template-rows: 10% 90%;
 }
 
 .navigation__bar ul {

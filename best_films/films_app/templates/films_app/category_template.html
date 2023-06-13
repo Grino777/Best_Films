@@ -7,18 +7,18 @@
 {% endblock %}
 
 {% block table_content %}
-{% block navigation %}
-<div class="films__navigation">
-    <ul class="category__name">
-        {% for cat in category %}
-        <li><a href="{% url 'category_movies' cat.category_slug %}">{{ cat.category_name }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
-{% endblock %}
-<div class="movies__content">
-    {% block movies_content %}
-
+    {% block navigation %}
+        <div class="films__navigation">
+            <ul class="category__name">
+                {% for cat in category %}
+                <li><a href="{% url 'category_movies' cat.category_slug %}">{{ cat.category_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endblock %}
-</div>
+        <div class="movies__content">
+            {% block movies_content %}
+
+            {% endblock %}
+        </div>
 {% endblock %}

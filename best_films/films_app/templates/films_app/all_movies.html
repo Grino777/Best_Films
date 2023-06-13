@@ -4,7 +4,6 @@
 
 {% block css_add %}
 <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}" />
-<link rel="stylesheet" href="{% static 'films_app/css/all_movies.css' %}" />
 {% endblock %}
 
 {% block movies_content %}
@@ -14,17 +13,20 @@
 	{% for movie in movies %}
 	<li class="info__movie">
 		<a href="" class="info__link">{{ movie.movie_title|capfirst }} ({{ movie.original_title|capfirst }})</a>
-		{% if movie not in added_movies %}
-		<form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
-			{% csrf_token %}
-			<select name="choice" id="choice_id" class="choice__category">
-				{% for status in statuses %}
-				<option value="{{status.id}}">{{ status }}</option>
-				{% endfor %}
-			</select>
-			<button type="submit"><img src="{% static 'films_app/img/plus.ico' %}"></button>
-		</form>
-		{% endif %}
+		<div class="movie__block__2">
+			{% if movie not in added_movies %}
+			<form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
+				{% csrf_token %}
+				<select name="choice" id="choice_id" class="choice__category">
+					{% for status in statuses %}
+					<option value="{{status.id}}">{{ status }}</option>
+					{% endfor %}
+				</select>
+				<button type="submit"><img src="{% static 'films_app/img/plus.ico' %}"></button>
+			</form>
+			{% endif %}
+		</div>
+
 	</li>
 	{% endfor %}
 </ul>

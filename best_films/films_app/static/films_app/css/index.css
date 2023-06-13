@@ -1,20 +1,24 @@
-body {
+/* body {
     height: 0;
     background-color: rgba(209, 209, 209, 0.507);
-}
+} */
 
-.page__content {
-    display: grid;
-    height: 100%;
-    grid-template-areas: "leftArea table rightArea";
-}
+
 
 .table__content {
     display: grid;
     grid-area: table;
     grid-template-columns: 1fr 3fr;
     height: 100%;
+    width: 100%;
     background-color: white;
+}
+
+.page__content {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-areas: ". table .";
 }
 
 .category__name {
@@ -50,24 +54,6 @@ body {
     border-bottom: 2px solid;
 }
 
-.statuses li {
-    display: grid;
-    height: 100%;
-    border-right: 2px solid;
-}
-
-.statuses li:last-child {
-    border-right: none;
-}
-
-.statuses li a {
-    margin: 0;
-    text-align: center;
-    background: orange;
-    height: 100%;
-    width: 100%;
-}
-
 .info__movie {
     display: grid;
     height: 80px;
@@ -98,20 +84,6 @@ ul.statuses__movies {
     text-align: center;
 }
 
-ul.statuses__movies li {
-    border-right: 1px solid;
-}
-
-ul.statuses__movies li:last-child {
-    border-right: none;
-}
-
-ul.statuses__movies li a {
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-
 .filter__movies {
     overflow-y: scroll;
 }
@@ -121,11 +93,6 @@ ul.movie__list {
     padding: 0;
     margin-top: 10px;
 
-}
-
-li.movie__info {
-    display: grid;
-    grid-template-columns: 4fr 1fr;
 }
 
 .movie__title {
@@ -152,4 +119,41 @@ li.movie__info {
 
 .films__navigation {
     background-color: rgb(0 0 0 / 17%);
+    width: 100%;
+}
+
+div.movies__content__title {
+    display: grid;
+    grid-area: contentTitle;
+    border-bottom: 1px solid #0000006b;
+    margin: 0 2.5%;
+}
+
+div.movies__content {
+    display: grid;
+    grid-template-rows: 80px 10fr;
+    grid-template-areas:
+        "contentTitle"
+        "movieList";
+}
+
+ul.all__movies {
+    height: 100%;
+    margin-top: 0;
+    overflow-y: scroll;
+}
+
+ul.all__movies li a {
+    align-self: center;
+}
+
+.add_movie_form {
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr;
+}
+
+.movie__block__2 {
+    display: grid;
+    width: 200px;
 }
