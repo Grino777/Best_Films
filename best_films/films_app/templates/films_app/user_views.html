@@ -9,7 +9,7 @@
 {% block navigation %}
 <div class="films__navigation">
     <ul class="category__name">
-        {% for cat in category %}
+        {% for cat in categories %}
         <li><a href="{% url 'user_category_movies' username=user.username category_slug=cat.category_slug %}">
                 {{ cat.category_name }}</a></li>
         {% endfor %}

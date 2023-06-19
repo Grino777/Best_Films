@@ -43,6 +43,12 @@ def delete_user_movie(request, movie_slug):
     return HttpResponseRedirect(url)
 
 
+def get_context(context):
+    context["categories"] = CATEGORY
+    context["statuses"] = STATUSES
+    return context
+
+
 class UsersListView(ListView):
     """Вывод всех пользователей"""
 
@@ -59,10 +65,9 @@ class CategoryFilmsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["category"] = CATEGORY
+        context = get_context(context=context)
         cat_id = context["category"].get(slug=kwargs["slug"]).id
         context["movies"] = Movie.objects.filter(category_id=cat_id)
-        context["statuses"] = STATUSES
         return context
 
 
@@ -75,16 +80,16 @@ class AllMoviesView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["category"] = CATEGORY
-        context["statuses"] = STATUSES
+        context = get_context(context=context)
         added_movies = UserMovies.objects.prefetch_related(
             "movie", "user").all().filter(user=self.request.user)
 
         context["added_movies"] = [movie.movie for movie in added_movies]
         if self.kwargs:
-            category = self.kwargs["slug"]
-            category = context["category"].get(slug=category)
-            context["movies"] = context["movies"].filter(category=category)
+            category = self.kwargs["category_slug"]
+            category = context["categories"].get(category_slug=category)
+            context["movies"] = context["movies"].filter(
+                category=category)
         return context
 
 
@@ -98,17 +103,16 @@ class UserViewsView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["category"] = CATEGORY
-        context["statuses"] = STATUSES
+        context = get_context(context=context)
         context["movies"] = UserMovies.objects.prefetch_related(
             "movie", "user").all()
 
-        user = self.kwargs.get("username", self.request.user.username)
+        user = self.kwargs.get("username", self.request.user.get_username())
         user = User.objects.get(username=user)
-        context["user"] = {"id": user.id, "username": user.username}
+        context["user"] = {"id": user.id, "username": user.username} # type: ignore
 
         category = self.kwargs.get("category_slug", "vse")
-        category = context["category"].get(category_slug=category)
+        category = context["categories"].get(category_slug=category)
 
         if user != self.request.user:
             query_user = context["movies"].filter(user=self.request.user)

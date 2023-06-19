@@ -5,9 +5,10 @@
 {% block css_add %}
 <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}" />
 {% endblock %}
-
 {% block movies_content %}
 <div class="movies__content__title">
+	<h2 class="title__category">
+	</h2>
 </div>
 <ul class="all__movies">
 	{% for movie in movies %}
@@ -22,11 +23,13 @@
 					<option value="{{status.id}}">{{ status }}</option>
 					{% endfor %}
 				</select>
-				<button type="submit"><img src="{% static 'films_app/img/plus.ico' %}"></button>
+				<button type="submit">
+					<img src="{% static 'films_app/img/plus.ico' %}" />
+				</button>
 			</form>
+			{% comment %} {% elif movie in added_movies %} {% endcomment %}
 			{% endif %}
 		</div>
-
 	</li>
 	{% endfor %}
 </ul>
