@@ -1,6 +1,7 @@
 {% extends 'films_app/table_template.html' %}
 
 {% load static %}
+{% load my_filters %}
 
 {% block css_add %}
 <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
@@ -11,7 +12,9 @@
 <div class="films__navigation">
     <ul class="category__name">
         {% for cat in categories %}
-        <li><a href="{% url 'category_all_movies' cat.category_slug %}">{{ cat.category_name }}</a></li>
+        <li class="{% if request.path|last_elem == cat.category_slug %}highlight{% endif %}">
+            <a href=" {% url 'category_all_movies' cat.category_slug %}">{{ cat.category_name }}</a>
+        </li>
         {% endfor %}
     </ul>
 </div>

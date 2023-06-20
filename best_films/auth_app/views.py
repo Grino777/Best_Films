@@ -14,7 +14,7 @@ from django.views.generic import TemplateView, CreateView
 
 def logout_user(request):
     logout(request)
-    return redirect('/')
+    return redirect('login')
 
 
 class RegisterUser(CreateView):
@@ -29,10 +29,12 @@ class RegisterUser(CreateView):
             form.instance.username = form.data['username'].lower()
             user = form.save()
             login(self.request, user)
-            red_url = reverse('main')
+            red_url = reverse_lazy('user_category_movies', kwargs={'username': self.request.user.username, 'category_slug': 'vse'}) # type: ignore
             return HttpResponseRedirect(red_url)
         else:
             return render(request, 'auth_app/registration.html', context={'form': form})
+        
+
 
 
 class LoginUser(LoginView):
@@ -48,7 +50,7 @@ class LoginUser(LoginView):
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return '/'
+        return reverse_lazy('user_category_movies', kwargs={'username': self.request.user.username, 'category_slug': 'vse'}) # type: ignore
 
 
 class DoneUserRegistration(TemplateView):

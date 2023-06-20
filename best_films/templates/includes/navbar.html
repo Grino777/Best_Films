@@ -4,7 +4,7 @@
         <li><a href="{% url 'registration' %}" class="nav__registart</>ion">Регистрация</a></li>
         <li><a href="{% url 'login' %}" class="nav__login">Войти</a></li>
         {% else %}
-        <li><a href="{% url 'user_movies' request.user.username %}" class="nav__main">Мои фильмы</a></li>
+        <li><a href="{% url 'user_category_movies' request.user.username 'vse' %}" class="nav__main">Мои фильмы</a></li>
         <li><a href="{% url 'category_all_movies' 'vse' %}" class="nav__all__movies">Все фильмы</a></li>
         <li><a href="{% url 'users_list' %}" class="nav__all__users">Все пользователи</a></li>
         <li>

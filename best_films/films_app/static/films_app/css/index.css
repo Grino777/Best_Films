@@ -159,3 +159,7 @@ ul.all__movies li a {
     display: grid;
     width: 200px;
 }
+
+.highlight {
+    background-color: rgba(88, 191, 209, 0.493);
+}

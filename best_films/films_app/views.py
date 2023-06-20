@@ -15,7 +15,6 @@ from .models import Category, Movie, Status, UserMovies
 CATEGORY = Category.objects.all()
 STATUSES = Status.objects.all()
 
-
 def add_user_movie(request, movie_slug):
     # переопределить метод save для проверки записи в бд (уникальность)
     user = request.user

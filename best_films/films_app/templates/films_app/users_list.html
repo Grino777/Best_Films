@@ -11,7 +11,7 @@
         <ul class="users__list">
             {% for user in users %}
                 {% if user.username != 'admin' %}
-                <a href="{% url 'user_movies' user.username %}">
+                <a href="{% url 'user_category_movies' user.username 'vse' %}">
                     <li class="{% if user == request.user %}my__username{% else %}{% endif %}">
                         {{ user.username|capfirst }}
                     </li>
