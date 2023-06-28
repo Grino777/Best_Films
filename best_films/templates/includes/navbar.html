@@ -1,4 +1,4 @@
-<nav class="navigation__bar container">
+<nav class="navigation__bar">
     <ul>
         {% if request.user.is_authenticated is False %}
         <li><a href="{% url 'registration' %}" class="nav__registart</>ion">Регистрация</a></li>

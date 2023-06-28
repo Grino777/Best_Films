@@ -2,30 +2,27 @@
 
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>
-        Регистрация
-    </title>
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'auth_app/css/login.css' %}" />
+{% endblock %}
 
-    {% block css_add %}
-<!--        <link rel="stylesheet" href="{% static 'auth_app/css/style.css' %}">-->
-    {% endblock %}
+{% block navbar %} {% endblock %}
 
-
-</head>
 <body>
     {% block content %}
-    <form method="post" name="reg__form">
-        {% csrf_token %}
-        {% for f in form %}
-            <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-            <div class="form-error">{{ f.errors }}</div>
-        {% endfor %}
-        <button type="submit">Регистрация</button>
-    </form>
+    <div class="login">
+        <h1>Registration</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password1 }}
+            {{ form.password2 }}
+            {{ form.email}}
+            <button type="submit" class="btn btn-primary btn-block btn-large">Reg</button>
+        </form>
+        <a href="{% url 'login' %}" class='auth'>Sign in</a>
+    </div>
     {% endblock %}
 </body>
+
 </html>

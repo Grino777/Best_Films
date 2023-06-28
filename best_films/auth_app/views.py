@@ -35,8 +35,6 @@ class RegisterUser(CreateView):
             return render(request, 'auth_app/registration.html', context={'form': form})
         
 
-
-
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'auth_app/login.html'

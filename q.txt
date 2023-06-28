@@ -30,3 +30,4 @@
 -----------------------------------------------
 
 ! Сделать отдельные CBV на роуты <str:username>
+#https://runebook.dev/ru/docs/django/ref/forms/fields

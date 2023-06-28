@@ -15,6 +15,11 @@ from .models import Category, Movie, Status, UserMovies
 CATEGORY = Category.objects.all()
 STATUSES = Status.objects.all()
 
+@login_required
+def main(request):
+    login_required("auth/login")
+    return HttpResponseRedirect(reverse_lazy('user_category_movies', args=(request.user.username, 'vse')))
+
 def add_user_movie(request, movie_slug):
     # переопределить метод save для проверки записи в бд (уникальность)
     user = request.user

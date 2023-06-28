@@ -2,31 +2,29 @@
 
 {% load static %}
 
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            Вход
-        </title>
-
-        {% block css_add %}
-            <link rel="stylesheet" href="{% static 'auth_app/css/style.css' %}">
-        {% endblock %}
-
-
-</head>
-<body>
-{% block content %}
-  <form method="post">
-      {% csrf_token %}
-      <div class="form-error">{{ form.non_field_errors }}</div>
-      {% for f in form %}
-        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
-        <div class="form-error">{{ f.errors }}</div>
-      {% endfor %}
-      <button type="submit">Войти</button>
-  </form>
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'auth_app/css/login.css' %}" />
 {% endblock %}
+
+{% block script_add %}
+<script src="{% static 'auth_app/js/script.js' %}"></script>
+{% endblock %}
+
+{% block navbar %} {% endblock %}
+
+<body>
+    {% block content %}
+    <div class="login">
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username}}
+            {{ form.password }}
+            <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        </form>
+        <a href="{% url 'registration' %}" class='auth'>Sign up</a>
+    </div>
+    {% endblock %}
 </body>
+
 </html>
