@@ -10,7 +10,7 @@
         <li>
             <div class="nav__none"></div>
         </li>
-        <li><a href="" class="nav__username">{{ request.user|capfirst }}</a></li>
+        <li><a href="{% url 'profile' request.user.username %}" class="nav__username">{{ request.user|capfirst }}</a></li>
         <li><a href="{% url 'logout' %}" class="nav__logout">Выйти</a></li>
         {% endif %}
     </ul>

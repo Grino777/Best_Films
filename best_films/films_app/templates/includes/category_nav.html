@@ -1,0 +1,17 @@
+{% load my_filters %}
+
+<div class="films__navigation">
+    <ul class="category__name">
+        {% for cat in categories %}
+        <li class="{% if request.path|last_elem == cat.category_slug %}highlight{% endif %}">
+            {% if template == "user_movies" %}
+            <a href="{% url 'user_category_movies' username=user.username category_slug=cat.category_slug %}">
+                {{ cat.category_name }}
+            </a>
+            {% elif template == "all_movies" %}
+            <a href="{% url 'category_all_movies' cat.category_slug %}">{{ cat.category_name }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>

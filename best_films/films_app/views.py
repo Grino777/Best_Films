@@ -15,10 +15,12 @@ from .models import Category, Movie, Status, UserMovies
 CATEGORY = Category.objects.all()
 STATUSES = Status.objects.all()
 
+
 @login_required
 def main(request):
     login_required("auth/login")
-    return HttpResponseRedirect(reverse_lazy('user_category_movies', args=(request.user.username, 'vse')))
+    return HttpResponseRedirect(reverse_lazy("user_category_movies", args=(request.user.username, "vse")))
+
 
 def add_user_movie(request, movie_slug):
     # переопределить метод save для проверки записи в бд (уникальность)
@@ -40,8 +42,7 @@ def add_user_movie(request, movie_slug):
 
 def delete_user_movie(request, movie_slug):
     movie = Movie.objects.get(movie_slug=movie_slug)
-    movie = get_object_or_404(
-        UserMovies, movie=movie, user_id=request.user.id)
+    movie = get_object_or_404(UserMovies, movie=movie, user_id=request.user.id)
     movie.delete()
     url = request.META.get("HTTP_REFERER")
     return HttpResponseRedirect(url)
@@ -85,15 +86,14 @@ class AllMoviesView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context = get_context(context=context)
-        added_movies = UserMovies.objects.prefetch_related(
-            "movie", "user").all().filter(user=self.request.user)
+        added_movies = UserMovies.objects.prefetch_related("movie", "user").all().filter(user=self.request.user)
 
         context["added_movies"] = [movie.movie for movie in added_movies]
+        context["template"] = 'all_movies'
         if self.kwargs:
             category = self.kwargs["category_slug"]
             category = context["categories"].get(category_slug=category)
-            context["movies"] = context["movies"].filter(
-                category=category)
+            context["movies"] = context["movies"].filter(category=category)
         return context
 
 
@@ -108,25 +108,24 @@ class UserViewsView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context = get_context(context=context)
-        context["movies"] = UserMovies.objects.prefetch_related(
-            "movie", "user").all()
+        context["movies"] = UserMovies.objects.prefetch_related("movie", "user").all()
 
         user = self.kwargs.get("username", self.request.user.get_username())
         user = User.objects.get(username=user)
-        context["user"] = {"id": user.id, "username": user.username} # type: ignore
+        context["user"] = {"id": user.id, "username": user.username}  # type: ignore
 
         category = self.kwargs.get("category_slug", "vse")
         category = context["categories"].get(category_slug=category)
 
+        context["template"] = 'user_movies'
+
         if user != self.request.user:
             query_user = context["movies"].filter(user=self.request.user)
             context["query_user"] = [movie.movie for movie in query_user]
-            user_movies = context["movies"].filter(
-                user=user).filter(category=category)
+            user_movies = context["movies"].filter(user=user).filter(category=category)
             context["movies"] = [movie.movie for movie in user_movies]
         else:
-            user_movies = context["movies"].filter(
-                user=user).filter(category=category)
+            user_movies = context["movies"].filter(user=user).filter(category=category)
             context["movies"] = [movie.movie for movie in user_movies]
             context["query_user"] = []
         return context

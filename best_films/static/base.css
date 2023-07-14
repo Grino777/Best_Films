@@ -59,10 +59,3 @@ a:hover {
 input {
     height: 20px;
 }
-
-a.nav__username:hover,
-a.nav__logout:hover,
-a.nav__login:hover {
-    background: none;
-    border: none;
-}

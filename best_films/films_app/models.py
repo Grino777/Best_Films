@@ -7,8 +7,7 @@ from django.db import models
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50, verbose_name='Категория')
-    category_slug = models.SlugField(max_length=50, unique=True,
-                                     db_index=True, verbose_name='URL')
+    category_slug = models.SlugField(db_index=True, verbose_name='URL')
 
     def __str__(self):
         return self.category_name
@@ -20,14 +19,11 @@ class Category(models.Model):
 
 class Movie(models.Model):
     movie_title = models.CharField(max_length=100, verbose_name='Название')
-    original_title = models.CharField(
-        max_length=100, blank=True, default='', verbose_name='Оригинальное название')
-    description = models.TextField(
-        verbose_name='Описание', blank=True, default='')
+    original_title = models.CharField(max_length=100, blank=True, default='', verbose_name='Оригинальное название')
+    description = models.TextField(verbose_name='Описание', blank=True, default='')
     url = models.URLField(blank=True, default='', verbose_name='Ссылка')
     category = models.ManyToManyField(Category, verbose_name='Категории')
-    movie_slug = models.SlugField(
-        max_length=50, unique=True, db_index=True, verbose_name='SLUG')
+    movie_slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='SLUG')
 
     def __str__(self):
         return self.movie_title
@@ -48,16 +44,11 @@ class Status(models.Model):
 
 
 class UserMovies(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.PROTECT, verbose_name='Пользователь')
-    movie = models.ForeignKey(
-        Movie, on_delete=models.PROTECT, verbose_name='Название фильма')
-    view_status = models.ForeignKey(
-        Status, on_delete=models.PROTECT, default='', verbose_name='Статус просмотра')
-    viewing_date = models.DateTimeField(
-        auto_now_add=True, verbose_name='Дата просмотра')
-    category = models.ManyToManyField(
-        Category, db_index=True, verbose_name='Категории')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT, verbose_name='Название фильма')
+    view_status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name='Статус просмотра')
+    viewing_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата просмотра')
+    category = models.ManyToManyField(Category, db_index=True, verbose_name='Категории')
 
     def __str__(self):
         return f'{self.user} - {self.movie}'

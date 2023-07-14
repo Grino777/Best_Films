@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'user_profile/css/profile.css' %}">
+{% endblock %}
+
+<h1>Сброс </h1>
+
+{% block content %}
+<div class="profile__block">
+    <div class="profile__menu">
+        <div class="pass"></div>
+        <ul class="menu">
+            {% for key, value in list_menu.items %}
+            <li><a href="{{ value.url }}">{{ value.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="info">
+        <div class="top"></div>
+        <div></div>
+    </div>
+</div>
+{% endblock content %}

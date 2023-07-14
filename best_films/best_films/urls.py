@@ -22,4 +22,5 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('', include('films_app.urls')),
     path('auth/', include('auth_app.urls')),
+    path('profile/', include('user_profile.urls')),
 ]

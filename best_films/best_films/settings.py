@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
-
     'auth_app',
     'films_app',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
@@ -152,4 +152,4 @@ INTERNAL_IPS = [
 
 # LOGIN_REDIRECT_URL = '/'
 
-LOGIN_URL = '/auth/login'
+LOGIN_URL = '/auth/login/'
