@@ -1,3 +1,9 @@
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'navbar.css' %}" />
+{% endblock %}
+
 <nav class="navigation__bar">
     <ul>
         {% if request.user.is_authenticated is False %}
@@ -10,7 +16,8 @@
         <li>
             <div class="nav__none"></div>
         </li>
-        <li><a href="{% url 'profile' request.user.username %}" class="nav__username">{{ request.user|capfirst }}</a></li>
+        <li><a href="{% url 'profile' request.user.username %}" class="nav__username">{{ request.user|capfirst }}</a>
+        </li>
         <li><a href="{% url 'logout' %}" class="nav__logout">Выйти</a></li>
         {% endif %}
     </ul>

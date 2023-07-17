@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{% block title %} {% endblock %}</title>
 
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
+		{% load static %}
 
-    {% load static %}
+		<link rel="stylesheet" href="{% static 'base.css' %}" />
+        {% block css_add %} {% endblock %}
+	</head>
 
-    <link rel="stylesheet" href="{% static 'base.css' %}">
-    {% block css_add %}{% endblock %}
-</head>
-
-<body>
-    {% block navbar %}
-        {% include 'includes/navbar.html' %}
-    {% endblock%}
-    {% block content %} {% endblock %}
-</body>
-
+	<body>
+		{% block navbar %} {% include 'includes/navbar.html' %} {% endblock%}
+		<div class="page__content">{% block content %}{% endblock %}</div>
+	</body>
 </html>

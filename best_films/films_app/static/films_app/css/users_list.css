@@ -1,33 +1,19 @@
-.page__content {
-    display: grid;
-    height: 91vh;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: .5fr 1fr 1fr 1fr;
-}
-
-.table__content {
-    background: grey;
-    grid-column-start: 2;
-    grid-column-end: 6;
-    grid-row-start: 2;
-    grid-row-end: -1;
-    border: 2px solid black;
-    border-radius: 7px;
-    padding-bottom: 10px;
-    display: grid;
-    grid-template-rows: 1fr 6fr;
-}
-
-.users__block {
+.users__list__table {
     display: grid;
     grid-template-rows: auto 1fr;
+    max-height: 680px;
+    width: 70%;
+    margin: 40px auto 0 auto;
+    border: 1px solid black;
+    background: #0000004d;
 }
 
-.table__content h2{
+.users__list__table h2 {
     text-align: center;
+    border-bottom: 1px solid;
 }
 
-.users__list {
+ul.users__list {
     height: auto;
     padding: 0;
     margin: 0;
@@ -41,5 +27,5 @@
 }
 
 .my__username {
-    background: rgba(255,215,0, 0.5)
+    background: rgba(255, 215, 0, 0.5)
 }

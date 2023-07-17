@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'bootstrap3',
     'auth_app',
     'films_app',
     'user_profile',

@@ -1,25 +1,11 @@
-/* body {
-    height: 0;
-    background-color: rgba(209, 209, 209, 0.507);
-} */
-
-
-
 .table__content {
     display: grid;
-    grid-area: table;
     grid-template-columns: 1fr 3fr;
     height: 100%;
-    width: 100%;
+    width: 70%;
     background-color: white;
     min-width: 900px;
-}
-
-.page__content {
-    display: grid;
-    height: 100%;
-    width: 100%;
-    grid-template-areas: ". table .";
+    margin: 0 auto;
 }
 
 .category__name {

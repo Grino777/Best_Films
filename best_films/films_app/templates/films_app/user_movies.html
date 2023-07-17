@@ -2,14 +2,42 @@
 
 {% load static %}
 
-{% block css_add %}
-<link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
-{% endblock %}
-
 {% block title %}
-
+    Мои фильмы
 {% endblock %}
 
-{% block content %}
-    
+{% block movies_content %}
+<div class="movies__content__title">
+    <form action="" class="search__form" name="search" id="search__form">
+        {% csrf_token %}
+        <input type="text">
+    </form>
+</div>
+<ul class="all__movies">
+    {% for movie in movies %}
+    <li class="info__movie">
+        <a href="" class="info__link">{{ movie|capfirst }} ({{ movie.original_title }})</a>
+        <div class="movie__block__2">
+            {% if user.id == request.user.id %}
+            <a href="{% url 'delete_movie' movie.movie_slug %}" class="delete__movie">
+                <img src="{% static 'films_app/img/cross.ico' %}">
+            </a>
+            {% elif user.id != request.user.id %}
+            {% if movie not in query_user %}
+            <form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
+                {% csrf_token %}
+                <select name="choice" id="choice_id" class="choice">
+                    {% for status in statuses %}
+                    <option value="{{status.id}}">{{ status }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit"><img src="{% static 'films_app/img/plus.ico' %}"></button>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

@@ -1,12 +1,13 @@
-{% extends 'films_app/table_template.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
 {% block css_add %}
     <link rel="stylesheet" href="{% static 'films_app/css/users_list.css' %}">
-{% endblock %}
+{% endblock css_add %}
 
-{% block users_list %}
+{% block content %}
+    <div class="users__list__table">
         <h2>Список пользователей ({{ users|length }})</h2>
         <ul class="users__list">
             {% for user in users %}
@@ -20,4 +21,5 @@
                 {% endif %}
             {% endfor %}
         </ul>
-{% endblock %}
+    </div>
+{% endblock content %}

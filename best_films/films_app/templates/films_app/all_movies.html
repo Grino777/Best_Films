@@ -1,4 +1,4 @@
-{% extends 'films_app/category_template.html' %}
+{% extends 'films_app/table_template.html' %}
 
 {% load static %}
 
@@ -6,32 +6,36 @@
 <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}" />
 {% endblock %}
 
+{% block title %}
+Все фильмы
+{% endblock %}
+
 {% block movies_content %}
 <div class="movies__content__title">
-	<h2 class="title__category">
-	</h2>
+    <h2 class="title__category">
+    </h2>
 </div>
 <ul class="all__movies">
-	{% for movie in movies %}
-	<li class="info__movie">
-		<a href="" class="info__link">{{ movie.movie_title|capfirst }} ({{ movie.original_title|capfirst }})</a>
-		<div class="movie__block__2">
-			{% if movie not in added_movies %}
-			<form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
-				{% csrf_token %}
-				<select name="choice" id="choice_id" class="choice__category">
-					{% for status in statuses %}
-					<option value="{{status.id}}">{{ status }}</option>
-					{% endfor %}
-				</select>
-				<button type="submit">
-					<img src="{% static 'films_app/img/plus.ico' %}" />
-				</button>
-			</form>
-			{% comment %} {% elif movie in added_movies %} {% endcomment %}
-			{% endif %}
-		</div>
-	</li>
-	{% endfor %}
+    {% for movie in movies %}
+    <li class="info__movie">
+        <a href="" class="info__link">{{ movie.movie_title|capfirst }} ({{ movie.original_title|capfirst }})</a>
+        <div class="movie__block__2">
+            {% if movie not in added_movies %}
+            <form action="{% url 'add_movie' movie.movie_slug %}" method="post" class="add_movie_form">
+                {% csrf_token %}
+                <select name="choice" id="choice_id" class="choice__category">
+                    {% for status in statuses %}
+                    <option value="{{status.id}}">{{ status }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">
+                    <img src="{% static 'films_app/img/plus.ico' %}" />
+                </button>
+            </form>
+            {% comment %} {% elif movie in added_movies %} {% endcomment %}
+            {% endif %}
+        </div>
+    </li>
+    {% endfor %}
 </ul>
 {% endblock %}

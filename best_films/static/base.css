@@ -11,37 +11,16 @@ body {
     height: 100vh;
     font-size: 1.5rem;
     background-color: rgba(209, 209, 209, 0.507);
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 60px 1fr;
 }
 
-.navigation__bar ul {
-    display: grid;
-    padding: 0;
-    margin: 0;
-    height: 60px;
-    grid-template-columns: repeat(6, 1fr);
-    grid-column-gap: 10px;
-    background: linear-gradient(279deg, rgba(236, 64, 54, 1) 0%, rgba(121, 9, 95, 0.9654236694677871) 27%, rgba(68, 222, 157, 0.9822303921568627) 100%)
-}
-
-.navigation__bar li {
-    display: table;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    text-align: center;
-}
-
-.navigation__bar li a {
-    display: table-cell;
-    vertical-align: middle;
+.page__content {
+    display: block;
     height: 100%;
     width: 100%;
 }
 
-.navigation__bar a:hover {
-    background: rgba(0, 0, 0, .2);
-}
+
 
 li {
     list-style-type: none;

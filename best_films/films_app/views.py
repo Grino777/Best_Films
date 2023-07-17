@@ -101,7 +101,7 @@ class UserViewsView(LoginRequiredMixin, ListView):
     """Отображение фильмов пользователя"""
 
     model = UserMovies
-    template_name = "films_app/user_views.html"
+    template_name = "films_app/user_movies.html"
     context_object_name = "movies"
     login_required("auth/login")
 

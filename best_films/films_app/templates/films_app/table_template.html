@@ -3,15 +3,17 @@
 {% load static %}
 
 {% block css_add %}
-    <link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'films_app/css/index.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="page__content">
-        <div class="table__content">
-            {% block users_list %} {% endblock %}
-            {% block table_content %} {% endblock %}
-        </div>
-
+<div class="table__content">
+    {% block users_list %} {% endblock %}
+    {% include "includes/category_nav.html" %}
+    <div class="movies__content">
+        {% block table_content %}
+        {% block movies_content %}{% endblock %}
+        {% endblock %}
     </div>
+</div>
 {% endblock %}
