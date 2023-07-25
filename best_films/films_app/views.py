@@ -1,9 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.db.models import QuerySet
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
 
@@ -52,6 +51,10 @@ def get_context(context):
     context["categories"] = CATEGORY
     context["statuses"] = STATUSES
     return context
+
+
+def get_search(request):
+    return render(request, 'films_app/search.html', context={'result': request.GET['search']})
 
 
 class UsersListView(ListView):

@@ -7,12 +7,6 @@
 {% endblock %}
 
 {% block movies_content %}
-<div class="movies__content__title">
-    <form action="" class="search__form" name="search" id="search__form">
-        {% csrf_token %}
-        <input type="text">
-    </form>
-</div>
 <ul class="all__movies">
     {% for movie in movies %}
     <li class="info__movie">

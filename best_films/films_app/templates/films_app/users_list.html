@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="users__list__table">
-        <h2>Список пользователей ({{ users|length }})</h2>
+        <h2>Всего пользователей: {{ users|length }}</h2>
         <ul class="users__list">
             {% for user in users %}
                 {% if user.username != 'admin' %}

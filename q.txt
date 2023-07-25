@@ -32,3 +32,4 @@
 
 #https://runebook.dev/ru/docs/django/ref/forms/fields
 #https://pocoz.gitbooks.io/django-v-primerah/content/glava-4-sozdanie-social-website/ispolzovanie-django-authentication-framework/izmenyaem-password-views.html
+https://habr.com/ru/articles/224011/
