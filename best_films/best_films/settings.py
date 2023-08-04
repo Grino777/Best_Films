@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'rest_framework',
     'bootstrap3',
     'auth_app',
     'films_app',
@@ -154,3 +155,10 @@ INTERNAL_IPS = [
 # LOGIN_REDIRECT_URL = '/'
 
 LOGIN_URL = '/auth/login/'
+
+# rest_framework pagination
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10
+# }

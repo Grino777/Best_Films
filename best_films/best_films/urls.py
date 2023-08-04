@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('films_app.urls')),
     path('auth/', include('auth_app.urls')),
     path('profile/', include('user_profile.urls')),
+    path('api/', include('site_api.urls'))
 ]

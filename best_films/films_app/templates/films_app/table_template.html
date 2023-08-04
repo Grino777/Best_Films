@@ -13,9 +13,7 @@
     <div class="movies__content">
         {% block table_content %}
         <div class="movies__content__title">
-            <form action="{% url 'search' %}" class="search__form" id="search__form">
-                <input type="text" name="search">
-            </form>
+            
         </div>
         {% block movies_content %}{% endblock %}
         {% endblock %}

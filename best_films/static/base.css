@@ -1,33 +1,27 @@
 html,
 body {
-    margin: 0 100px;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 body {
     display: block;
-    font-family: 'Arial';
+    font-family: "Arial";
     height: 100vh;
     font-size: 18px;
     background-color: rgba(209, 209, 209, 0.507);
-    grid-template-rows: 60px 1fr;
+    /* grid-template-rows: 60px 1fr; */
 }
 
-
-
 .main {
-    display: block;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    margin: 0 15%;
 }
 
 .page__content {
     height: 100%;
 }
-
-
 
 li {
     list-style-type: none;

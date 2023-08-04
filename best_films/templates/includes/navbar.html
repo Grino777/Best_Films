@@ -1,13 +1,13 @@
 {% load static %}
 
 {% block css_add %}
-    <link rel="stylesheet" href="{% static 'navbar.css' %}" />
+<link rel="stylesheet" href="{% static 'navbar.css' %}" />
 {% endblock %}
 
 <nav class="navigation__bar">
     <ul>
         {% if request.user.is_authenticated is False %}
-        <li><a href="{% url 'registration' %}" class="nav__registart</>ion">Регистрация</a></li>
+        <li><a href="{% url 'registration' %}" class="nav__registartion">Регистрация</a></li>
         <li><a href="{% url 'login' %}" class="nav__login">Войти</a></li>
         {% else %}
         <li><a href="{% url 'user_category_movies' request.user.username 'vse' %}" class="nav__main">Мои фильмы</a></li>
@@ -16,9 +16,14 @@
         <li>
             <div class="nav__none"></div>
         </li>
-        <li><a href="{% url 'profile' request.user.username %}" class="nav__username">{{ request.user|capfirst }}</a>
+        <li>
+            <a href="{% url 'profile' request.user.username %}" class="nav__username">{{ request.user|capfirst }}</a>
+            {% comment %} <ul>
+                <li><a href="#">Профиль</a></li>
+                <li><a href="#">Выход</a></li>
+            </ul> {% endcomment %}
         </li>
-        <li><a href="{% url 'logout' %}" class="nav__logout">Выйти</a></li>
+        {% comment %} <li><a href="{% url 'logout' %}" class="nav__logout">Выйти</a></li> {% endcomment %}
         {% endif %}
     </ul>
 </nav>

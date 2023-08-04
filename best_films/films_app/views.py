@@ -132,3 +132,7 @@ class UserViewsView(LoginRequiredMixin, ListView):
             context["movies"] = [movie.movie for movie in user_movies]
             context["query_user"] = []
         return context
+
+
+class SearchMoviesView(TemplateView):
+    template_name = ""
